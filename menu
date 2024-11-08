@@ -12,6 +12,11 @@ let coins_amount = 10;
 let shopButton;
 
 var coin;
+let img;
+
+function preload() {
+  img = loadImage("Cat.png");
+}
 
 function setup() {
   createCanvas(1000, 1000);
@@ -115,6 +120,7 @@ function draw() {
     fill(255, 255, 255, fadeAmount);
     rect(0, 0, width, height);
   }
+
 }
 
 function drawCoin() {
@@ -335,6 +341,11 @@ function purchaseItem(item) {
     alert(`You have purchased: ${item.name}`);
   } else {
     alert("You don't have enough coins!");
+  }
+
+  if (item.name = "Cat 🐱") {
+    background(255);
+    image(img, 100, 100);
   }
 }
 
