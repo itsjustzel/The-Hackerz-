@@ -95,7 +95,7 @@ function draw() {
   } else if (gameState === "countdown") {
     drawCountdown();
   } else if (gameState === "shop") {
-    drawShopMenu();
+    drawShopMenu(); // Calls the shop menu with light blue background
   }
   drawCoin();
   
@@ -253,7 +253,7 @@ function openShop() {
   fadeAmount = 255;
   hideWorkoutButtons();
   createShopButtons();
-  drawShopMenu();
+  drawShopMenu(); // Calls the updated shop menu function
 }
 
 function hideWorkoutButtons() {
@@ -283,33 +283,37 @@ function createShopButtons() {
     let button = createButton(item.name + " - " + item.price + " coins");
     button.position(width / 2 - 150, startY + i * itemHeight);
     button.size(300, 50);
-    button.mousePressed(() => purchaseItem(item));
+    button.style('font-size', '18px');
+    button.style('font-family', 'Poppins');
+    button.style('background-color', '#ffffff');
+    button.style('color', '#000000');
+    button.mousePressed(() => buyItem(item));
     itemButtons.push(button);
   }
 }
 
-function purchaseItem(item) {
+function hideBuyButtons() {
+  for (let button of itemButtons) {
+    button.hide();
+  }
+  itemButtons = [];
+}
+
+function buyItem(item) {
   if (coins_amount >= item.price) {
     coins_amount -= item.price;
-    alert("You bought: " + item.name);
+    console.log("Bought", item.name);
   } else {
-    alert("Not enough coins!");
+    console.log("Not enough coins to buy", item.name);
   }
 }
 
 function drawShopMenu() {
-  background(173, 216, 230);
+  background(173, 216, 230);  // Light blue background
   fill(0);
   textAlign(CENTER);
   textSize(48);
   text('Shop', width / 2, 150);
 
   backButton.show();
-}
-
-function hideBuyButtons() {
-  for (let button of itemButtons) {
-    button.remove();
-  }
-  itemButtons = [];
 }
