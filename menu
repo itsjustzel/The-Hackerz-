@@ -89,6 +89,7 @@ function setup() {
   };
 }
 
+
 function startGame() {
   gameState = "workout";
   startButton.hide();
