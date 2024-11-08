@@ -10,12 +10,19 @@ let countdownTime = 0;
 let startTime = 0;
 let coins_amount = 10;
 let shopButton;
+// This was for Profile page - the username and petname variable is so that users can customise them
+let username = "Player1";
+let petname = "Pet1";
 
 var coin;
-let img;
+//Created 2 variables for the cat and dog image
+let catImage;
+let dogImage;
 
+//followed instructions from p5.js reference
 function preload() {
-  img = loadImage("Cat.png");
+  catImage = loadImage("Cat.png");
+  dogImage = loadImage("Dog.png")
 }
 
 function setup() {
@@ -92,6 +99,7 @@ function setup() {
     width: 60,
     height: 60
   };
+
 }
 
 
@@ -111,7 +119,10 @@ function draw() {
     drawCountdown();
   } else if (gameState === "shop") {
     drawShopMenu();
+  } else if (gameState === "profile") {
+    drawProfilePage();
   }
+
   drawCoin();
   mouseOver();
 
@@ -156,6 +167,8 @@ function drawWelcomeScreen() {
   textStyle(BOLD);
   fill(0);
   text('Welcome to FitQuest', width / 2, height / 2 - 100);
+
+
 }
 
 function drawWorkoutMenu() {
@@ -290,15 +303,18 @@ function hideWorkoutButtons() {
 }
 
 let shopItems = [
-  { name: "Cat 🐱", price: 5 },
-  { name: "Dog 🐶", price: 5 },
-  { name: "Bow 🎀", price: 3 },
-  { name: "Hat 🎩", price: 3 },
-  { name: "Sword 🗡️", price: 8 },
-  { name: "Shield 🛡️", price: 10 }
+  { name: "Cat 🐱", price: 5, image: catImage },
+  { name: "Dog 🐶", price: 5, image: dogImage },
+  { name: "Bow 🎀", price: 3, isAccessory: true },
+  { name: "Hat 🎩", price: 3, isAccessory: true },
+  { name: "Sword 🗡️", price: 8, isAccessory: true },
+  { name: "Shield 🛡️", price: 10, isAccessory: true }
 ];
 
 let buyButtons = [];
+//newly added here
+let purchasedItems = [];
+
 
 function drawShopMenu() {
   background(173, 216, 230);
@@ -317,7 +333,7 @@ function drawShopMenu() {
 
     if (!buyButtons[i]) {
       let buyButton = createButton('Buy');
-      buyButton.position(width / 2 + 50, yPosition - 10);
+      buyButton.position(width / 2 + 50, yPosition - 23);
       buyButton.size(80, 30);
       buyButton.style('font-size', '16px');
       buyButton.style('font-family', 'Poppins');
@@ -332,25 +348,75 @@ function drawShopMenu() {
   }
 
   backButton.show();
+
+
+  //Code did not work - HELP
+  imageMode(CENTER);
+
+  let petX = 200;
+  let petY = 200;
+
+  image(catImage || dogImage, petX, petY, petWidth, petHeight)
+  for (let i = 0; i < purchasedItems.length; i++) {
+    let item = purchasedItems[i];
+    if (item.isAccessory) {
+      if (item.name === "Hat 🎩") {
+        push();
+        translate(petX, petY - petHeight / 2 - hatHeight / 2);
+      }
+      image(item.image, 0, 0, hatWidth, hatHeight);
+      pop();
+    } else if (item.name === "Bow") {
+      // Position the bow around the character's neck
+      push();
+      translate(characterX, characterY + characterHeight / 2); // Adjust y-coordinate for bow position
+      image(item.image, 0, 0, bowWidth, bowHeight);
+      pop();
+    }
+  }
 }
+
+
 
 function purchaseItem(item) {
   if (coins_amount >= item.price) {
     coins_amount -= item.price;
+    //tbh saw from gemini but didnt know why its there lol
+    purchasedItems.push(item);
     console.log("Purchased: " + item.name);
     alert(`You have purchased: ${item.name}`);
   } else {
     alert("You don't have enough coins!");
-  }
-
-  if (item.name = "Cat 🐱") {
-    background(255);
-    image(img, 100, 100);
   }
 }
 
 function hideBuyButtons() {
   for (let i = 0; i < buyButtons.length; i++) {
     buyButtons[i].hide();
+  }
+
+  //code did not work - HELP!
+  function drawProfilePage() {
+    background(0, 191, 255);
+
+    fill(0);
+    textSize(32);
+    text("Username:", 100, 100);
+
+    //Allow user to change their usernames
+    usernameInput = createInput(username);
+    usernameInput.position(200, 100);
+
+    saveButton = createButton("Save");
+    saveButton.position(200, 200);
+    saveButton.mousePressed(saveProfileChanges);
+
+    backButton.show();
+  }
+
+  function saveProfileChanges() {
+    username = usernameInput.value();
+
+    saveProfileData();
   }
 }
