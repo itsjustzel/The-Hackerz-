@@ -170,6 +170,18 @@ function drawCoin() {
   text(`Coins: ${nf(coins_amount, 3, 0)}`, 150, 50);
 }
 
+function mouseOver() {
+  if (mouseX >= coin.posX && mouseX <= coin.posX + coin.width && mouseY >= coin.posY && mouseY <= coin.posY + coin.height) {
+    fill(240, 230, 140);
+    rect(50, 100, 400, 200);
+    fill(0);
+    textSize(20);
+    textWrap(WORD);
+    text("Coins here are earned when you worked out. You can use these coins to buy a pet and accesories to customise it", 80, coin.posX + 110, coin.posY + 300);
+  }
+}
+
+
 function drawWelcomeScreen() {
   background(173, 216, 230);
 
