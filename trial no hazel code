@@ -34,7 +34,7 @@ function setup() {
   profileButton.style('background-color', '#ffffff');
   profileButton.style('color', '#000000');
   profileButton.mousePressed(openProfilePage);
-  profileButton.hide(); // Hide profile button initially
+  profileButton.hide(); 
 
   shopButton = createButton('🛒');
   shopButton.position(width - 70, 30);
@@ -62,21 +62,21 @@ backButton2.style('font-size', '20px');
 backButton2.style('font-family', 'Poppins');
 backButton2.style('background-color', '#ffffff');
 backButton2.style('color', '#000000');
-backButton2.hide(); // Initially hide the back button
-backButton2.mousePressed(goBackToWelcomePage); // Set the function to call on press
+backButton2.hide(); 
+backButton2.mousePressed(goBackToWelcomePage); 
 
   if (gameState === "workout") {
     shopButton.show();
-    backButton.show(); // Show back button in workout menu
+    backButton.show(); 
 }
 
 function goBackToWelcomePage() {
   gameState = "welcome"; 
-  backButton2.hide(); // Hide back button when returning to welcome page
+  backButton2.hide(); 
   cardioButton.hide();
   strengthButton.hide();
-  startButton.show(); // Show start button again
-  profileButton.show(); // Show profile button again
+  startButton.show(); 
+  profileButton.show(); 
 }
   
 
@@ -130,10 +130,10 @@ function goBackToWelcomePage() {
 function startGame() {
   gameState = "workout"; 
   startButton.hide();
-  profileButton.hide(); // Hide profile button in workout menu
+  profileButton.hide(); 
   showWorkoutMenu();
   fadeAmount = 255;
-  backButton2.show(); // Show back button 2 in workout
+  backButton2.show(); 
 }
 
 
@@ -180,7 +180,7 @@ function drawWelcomeScreen() {
   fill(0);
   text('Welcome to FitQuest', width / 2, height / 2 - 100);
   shopButton.hide(); 
-  profileButton.show(); // Show profile button only on welcome screen
+  profileButton.show(); 
 }
 
 function drawWorkoutMenu() {
@@ -196,7 +196,7 @@ function drawWorkoutMenu() {
 
   if (gameState === "workout") {
     shopButton.show();
-    backButton2.show(); // Always show backButton2 in workout menu
+    backButton2.show(); 
   }
 }
 
@@ -365,7 +365,7 @@ function buyItem(item) {
 }
 
 function drawShopMenu() {
-  background(173, 216, 230);  // Light blue background
+  background(173, 216, 230);  
   fill(0);
   textAlign(CENTER);
   textSize(35);
@@ -387,16 +387,15 @@ function drawProfilePage() {
   textSize(32);
   textAlign(CENTER);
 
-  // Using emojis in the profile
-  // Emoji profile name
-  text('Pets', width / 2, 200);       // Centered horizontally
-  text('Accessories', width / 2, 250); // Centered horizontally
+ 
+  text('Pets', width / 2, 200);       
+  text('Accessories', width / 2, 250); 
 }
 
 
 function openProfilePage() {
   gameState =  "profile"; 
-  profileButton.hide(); // Hide profile button
-  startButton.hide(); // Hide start button when on the profile page
+  profileButton.hide(); 
+  startButton.hide(); 
   backButton.show();
 }
