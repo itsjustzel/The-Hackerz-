@@ -11,6 +11,7 @@ let startTime = 0;
 let coins_amount = 10;
 let shopButton;
 let petsButton, accessoriesButton;
+let backButton2;
 
 
 function setup() {
@@ -43,6 +44,41 @@ function setup() {
   shopButton.style('color', '#000000');
   shopButton.mousePressed(openShop);
   shopButton.hide();
+  
+  
+  backButton = createButton('Back');
+  backButton.position(width / 2 - 50, height - 100);
+  backButton.size(100, 40);
+  backButton.style('font-size', '20px');
+  backButton.style('font-family', 'Poppins');
+  backButton.style('background-color', '#ffffff');
+  backButton.style('color', '#000000');
+  backButton.hide();
+  
+backButton2 = createButton('Back');
+backButton2.position(width / 2 - 50, height - 100);
+backButton2.size(100, 40);
+backButton2.style('font-size', '20px');
+backButton2.style('font-family', 'Poppins');
+backButton2.style('background-color', '#ffffff');
+backButton2.style('color', '#000000');
+backButton2.hide(); // Initially hide the back button
+backButton2.mousePressed(goBackToWelcomePage); // Set the function to call on press
+
+  if (gameState === "workout") {
+    shopButton.show();
+    backButton.show(); // Show back button in workout menu
+}
+
+function goBackToWelcomePage() {
+  gameState = "welcome"; 
+  backButton2.hide(); // Hide back button when returning to welcome page
+  cardioButton.hide();
+  strengthButton.hide();
+  startButton.show(); // Show start button again
+  profileButton.show(); // Show profile button again
+}
+  
 
   cardioButton = createButton('Cardio');
   cardioButton.position(width / 2 - 125, 300);
@@ -97,7 +133,9 @@ function startGame() {
   profileButton.hide(); // Hide profile button in workout menu
   showWorkoutMenu();
   fadeAmount = 255;
+  backButton2.show(); // Show back button 2 in workout
 }
+
 
 function draw() {
   if (gameState === "welcome") {
@@ -141,7 +179,7 @@ function drawWelcomeScreen() {
   textStyle(BOLD);
   fill(0);
   text('Welcome to FitQuest', width / 2, height / 2 - 100);
-
+  shopButton.hide(); 
   profileButton.show(); // Show profile button only on welcome screen
 }
 
@@ -158,8 +196,10 @@ function drawWorkoutMenu() {
 
   if (gameState === "workout") {
     shopButton.show();
+    backButton2.show(); // Always show backButton2 in workout menu
   }
 }
+
 
 function showWorkoutMenu() {
   cardioButton.show();
@@ -330,8 +370,8 @@ function drawShopMenu() {
   textAlign(CENTER);
   textSize(35);
   text('Shop', width / 2, 150);
-
   backButton.show();
+  profileButton.hide();
 }
 
 
@@ -343,7 +383,6 @@ function openProfilePage() {
 
 function drawProfilePage() {
   background(173, 216, 230);
-
   fill(0);
   textSize(32);
   textAlign(CENTER);
@@ -361,6 +400,3 @@ function openProfilePage() {
   startButton.hide(); // Hide start button when on the profile page
   backButton.show();
 }
-
-
-
