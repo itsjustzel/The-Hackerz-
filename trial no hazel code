@@ -45,6 +45,45 @@ function setup() {
   shopButton.mousePressed(openShop);
   shopButton.hide();
   
+  petButton = createButton('Pets');
+  petButton.position(width / 2 - 125, 500);
+  petButton.size(250, 70);
+  petButton.style('font-size', '28px');
+  petButton.style('font-family', 'Poppins');
+  petButton.style('background-color', '#ffffff');
+  petButton.style('color', '#000000');
+  petButton.hide();
+  petButton.mousePressed(openPetPage);
+  
+  accessoriesButton = createButton('Accessories');
+  accessoriesButton.position(width / 2 - 125, 600);
+  accessoriesButton.size(250, 70);
+  accessoriesButton.style('font-size', '28px');
+  accessoriesButton.style('font-family', 'Poppins');
+  accessoriesButton.style('background-color', '#ffffff');
+  accessoriesButton.style('color', '#000000');
+  accessoriesButton.hide();
+  accessoriesButton.mousePressed(openAccessoriesPage);
+
+  backButton3 = createButton('Back');
+  backButton3.position(width / 2 - 50, height - 100);
+  backButton3.size(100, 40);
+  backButton3.style('font-size', '20px');
+  backButton3.style('font-family', 'Poppins');
+  backButton3.style('background-color', '#ffffff');
+  backButton3.style('color', '#000000');
+  backButton3.hide();
+  backButton3.mousePressed(goBackToWorkoutMenu);
+
+  backButton4 = createButton('Back');
+  backButton4.position(width / 2 - 50, height - 100);
+  backButton4.size(100, 40);
+  backButton4.style('font-size', '20px');
+  backButton4.style('font-family', 'Poppins');
+  backButton4.style('background-color', '#ffffff');
+  backButton4.style('color', '#000000');
+  backButton4.hide();
+  backButton4.mousePressed(goBackToWorkoutMenu);
   
   backButton = createButton('Back');
   backButton.position(width / 2 - 50, height - 100);
@@ -54,6 +93,8 @@ function setup() {
   backButton.style('background-color', '#ffffff');
   backButton.style('color', '#000000');
   backButton.hide();
+
+  
   
 backButton2 = createButton('Back');
 backButton2.position(width / 2 - 50, height - 100);
@@ -136,7 +177,6 @@ function startGame() {
   backButton2.show(); 
 }
 
-
 function draw() {
   if (gameState === "welcome") {
     drawWelcomeScreen();
@@ -148,7 +188,12 @@ function draw() {
     drawShopMenu(); 
   } else if (gameState === "profile") {
     drawProfilePage(); 
+  } else if (gameState === "petPage") {
+    drawPetPage();
+  } else if (gameState === "accessoriesPage") {
+    drawAccessoriesPage();
   }
+  
   drawCoin();
   
   if (fadeAmount > 0) {
@@ -169,18 +214,6 @@ function drawCoin() {
   textSize(15);
   text(`Coins: ${nf(coins_amount, 3, 0)}`, 150, 50);
 }
-
-function mouseOver() {
-  if (mouseX >= coin.posX && mouseX <= coin.posX + coin.width && mouseY >= coin.posY && mouseY <= coin.posY + coin.height) {
-    fill(240, 230, 140);
-    rect(50, 100, 400, 200);
-    fill(0);
-    textSize(20);
-    textWrap(WORD);
-    text("Coins here are earned when you worked out. You can use these coins to buy a pet and accesories to customise it", 80, coin.posX + 110, coin.posY + 300);
-  }
-}
-
 
 function drawWelcomeScreen() {
   background(173, 216, 230);
@@ -211,6 +244,17 @@ function drawWorkoutMenu() {
     backButton2.show(); 
   }
 }
+
+function openPetPage() {
+  gameState = "petPage"; // Switch to pet page
+  backButton3.show();
+}
+
+function openAccessoriesPage() {
+  gameState = "accessoriesPage"; // Switch to accessories page
+  backButton4.show();
+}
+
 
 
 function showWorkoutMenu() {
@@ -277,6 +321,10 @@ function goBackToWorkoutMenu() {
   fadeAmount = 255;
   shopButton.show();
   hideBuyButtons();
+  petButton.hide(); // Hide pet and accessories buttons
+  accessoriesButton.hide(); 
+  backButton3.hide();
+  backButton4.hide();
 }
 
 function drawCountdown() {
@@ -396,18 +444,34 @@ function openProfilePage() {
 function drawProfilePage() {
   background(173, 216, 230);
   fill(0);
-  textSize(32);
+  textSize(50);
   textAlign(CENTER);
 
  
-  text('Pets', width / 2, 200);       
-  text('Accessories', width / 2, 250); 
+  text('Profile', width / 2, 200);       
+  petButton.show(); 
+  accessoriesButton.show();
+  startButton.hide()
+   petButton.position(width / 2 - 125, 300); 
+  accessoriesButton.position(width / 2 - 125, 400); 
 }
 
 
-function openProfilePage() {
-  gameState =  "profile"; 
-  profileButton.hide(); 
-  startButton.hide(); 
-  backButton.show();
+
+function drawPetPage() {
+  background(173, 216, 230);
+  fill(0);
+  textSize(48);
+  textAlign(CENTER);
+  text("Pets Page", width / 2, 150);
+  backButton3.show(); 
+}
+
+function drawAccessoriesPage() {
+  background(173, 216, 230);
+  fill(0);
+  textSize(48);
+  textAlign(CENTER);
+  text("Accessories Page", width / 2, 150);
+  backButton4.show(); 
 }
