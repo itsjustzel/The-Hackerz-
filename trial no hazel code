@@ -465,6 +465,8 @@ function drawPetPage() {
   textAlign(CENTER);
   text("Pets Page", width / 2, 150);
   backButton3.show(); 
+  petButton.hide();
+  accessoriesButton.hide();
 }
 
 function drawAccessoriesPage() {
@@ -474,4 +476,6 @@ function drawAccessoriesPage() {
   textAlign(CENTER);
   text("Accessories Page", width / 2, 150);
   backButton4.show(); 
+  petButton.hide();
+  accessoriesButton.hide();
 }
